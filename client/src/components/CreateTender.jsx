@@ -19,7 +19,7 @@ const CreateTender = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const authToken = localStorage.getItem('authToken'); 
+const authToken = localStorage.getItem('token'); 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -33,11 +33,12 @@ const CreateTender = () => {
       setFormData({
         nameOfWork: '',
         location: '',
-        approxCost: '',
-        bidSecurity: '',
+        approxCost: 0,
+        bidSecurity: 0,
         address: '',
         uploadDateTime: '',
         tenderNumber: '',
+        numberOfBids : 0  
       });
     } catch (error) {
       console.error(`Error publishing tender: ${error}`);

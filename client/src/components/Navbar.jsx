@@ -1,7 +1,26 @@
 import React from 'react';
 import SearchComponent from './Search';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+import Sidebar from './Sidebar';
+import { useState } from 'react';
+import Profile from './Profile';
 
 const Navbar = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  
+    const toggleDropdown = () => {
+      setIsOpen(!isOpen);
+    };
+  
+    const closeDropdown = () => {
+      setIsOpen(false);
+    };
+  const toggleSidebar = () =>{
+    setIsSidebarOpen(!isSidebarOpen);
+  }
+
     const handleLogout = () => {
         localStorage.removeItem('token');
         window.location = '/login';
@@ -25,6 +44,10 @@ const Navbar = () => {
     const handleContact = (e) => {
         e.preventDefault();
         window.location.href = '/';
+    }
+    const handleSidebar = ()=>{
+      console.log('clicked');
+        setIsSidebarOpen(!isSidebarOpen);
     }
   return (
     <div className="top-0 left-0 right-0 m-2 z-15 flex items-center justify-between">
@@ -57,6 +80,10 @@ const Navbar = () => {
         >
           Logout
         </button>
+        <div className="sidebar py-2 px-4 rounded ml-4" onClick={toggleDropdown}>
+          {/* <FontAwesomeIcon icon={faBars} /> */}
+          <Profile isOpen={isOpen} isClose={closeDropdown} />
+        </div>
       </div>
     </div>
   );

@@ -5,6 +5,10 @@ import HeroSection from './Hero';
 import VerticalGrid from './VerticalGrid';
 import Footer from './Footer';
 import FeatureCard from './FeatureCard';
+import Sidebar from './Sidebar';
+import { useState, useEffect} from 'react';
+import Dashboard from '../pages/Dashboard';
+
 
 // Feature Card Component
 
@@ -34,10 +38,7 @@ const PricingCard = ({ title, price, features }) => {
 
 // Main Component
 const MainComponent = () => {
-  // const handleLogout = () => {
-  //   localStorage.removeItem('token');
-  //   window.location = '/login';
-  // };
+
   const handleSubmit = () => {
     window.location = '/create-tender';
   }
@@ -138,6 +139,7 @@ const MainComponent = () => {
         </div>
       </div>
       <Footer />
+      
     </div>
   );
 };

@@ -1,21 +1,32 @@
 const express = require('express');
 const router = express.Router();
-
+const jwt = require('jsonwebtoken');
 const { Tender } = require('../models/tender');
+const User = require('../models/user');
+
 
 // Middleware function to authenticate requests
-const authenticate = (req, res, next) => {
-  // Check if authentication credentials are present in the request
-  // For example, you might check for a JWT token in the Authorization header
+const authenticate = async (req, res, next) => {
+  
   const token = req.headers.authorization;
 
-  // If authentication credentials are valid, proceed to the next middleware or route handler
-  // Otherwise, respond with a 401 Unauthorized error
-  if (token) {
-    // Verify token here
-    next();
+  if (token && token.startsWith('Bearer ')) {
+    // Extract token without 'Bearer ' prefix
+    const tokenValue = token.split(' ')[1];
+    
+    try {
+      // Verify token
+      const decodedToken = jwt.verify(tokenValue, process.env.JWTPRIVATEKEY);
+      
+      // Attach user information to request object
+      req.user = decodedToken;
+      next();
+    } catch (error) {
+      console.error(`Error verifying token: ${error}`);
+      return res.status(401).json({ message: 'Unauthorized: Invalid token' });
+    }
   } else {
-    res.status(401).json({ message: 'Unauthorized' });
+    res.status(401).json({ message: 'Unauthorized: Token missing or invalid format' });
   }
 };
 
@@ -23,16 +34,21 @@ router.post('/submit-form', authenticate, async (req, res) => {
   try {
     // Extract form data from request body
     const { nameOfWork, location, approxCost, bidSecurity, address, uploadDateTime, tenderNumber } = req.body;
-
+    // Retrieve user ID from decoded token attached to request
+    
+    const userId = req.user._id;
+    
     // Create a new Tender object
     const newTender = new Tender({
+      user: userId, 
       nameOfWork,
       location,
       approxCost,
       bidSecurity,
       address,
       uploadDateTime,
-      tenderNumber
+      tenderNumber,
+      numberOfBids: 0
     });
 
     // Save the new tender to the database
@@ -46,9 +62,15 @@ router.post('/submit-form', authenticate, async (req, res) => {
   }
 });
 
-router.get('/all-tenders', authenticate, async (req, res) => {
+
+router.get('/all-tenders', async (req, res) => {
   try {
     // Fetch all tenders from the database
+    const token = req.headers.authorization;
+    if(!token){
+      return res.status(401).json({message: 'Unauthorized: Token missing or invalid format'});
+    }
+
     const allTenders = await Tender.find();
 
     // Respond with the list of tenders
@@ -58,5 +80,8 @@ router.get('/all-tenders', authenticate, async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
+
+router.put('/bid/:tenderId', authenticate, async (req, res) => {})
 
 module.exports = router;

@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import HeroSection from '../components/Hero';
 import VerticalGrid from '../components/VerticalGrid';
 import axios from 'axios';
+import TenderCard from '../components/TenderCard';
 
 const Tenders = () => {
   const [tendersData, setTendersData] = useState([]);
@@ -41,23 +42,15 @@ const Tenders = () => {
         <HeroSection />
       </div>
       <div className="container mx-auto p-8">
-        <VerticalGrid tenders={tendersData} />
-        
+       
       </div>
       <div className="pt-16 mx-auto px-4 py-8">
-        <div className="bg-white rounded-lg shadow-md p-8 mb-8">
-          <h1 className="text-4xl font-bold mb-4">New Tenders</h1>
+        <div className="bg-white rounded-lg shadow-md p-10 mb-10">
+          <h1 className="text-7xl font-bold mb-4">New Tenders</h1>
           <p className="text-gray-600 mb-8">Bid anytime anywhere</p>
           {/* Render fetched tender data here */}
-          <ul>
-            {tendersData.map(tender => (
-              <li key={tender._id}>
-                <h2>{tender.nameOfWork}</h2>
-                <p>{tender.location}</p>
-                {/* Add more tender properties as needed */}
-              </li>
-            ))}
-          </ul>
+          <VerticalGrid tenders={tendersData} />
+            <TenderCard/>
         </div>
       </div>
       <Footer />

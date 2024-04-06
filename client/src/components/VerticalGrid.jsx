@@ -7,9 +7,12 @@ const VerticalGrid = ({ tenders }) => {
       {tenders.map((tender) => (
         <TenderCard
           key={tender._id} // Assuming `_id` is a unique identifier for each tender
-          title={tender.title}
-          description={tender.description}
-          deadline={tender.deadline}
+          title={tender.nameOfWork}
+          tenderNumber={tender.tenderNumber}
+          location={tender.location}
+          approxCost={tender.approxCost}
+          bidSecurity={tender.bidSecurity}
+          uploadDateTime={tender.uploadDateTime}
         />
       ))}
     </div>

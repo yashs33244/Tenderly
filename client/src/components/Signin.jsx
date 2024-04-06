@@ -48,24 +48,13 @@ const SignInForm = () => {
       <div className="bg-gray-100 text-gray-800 rounded-lg p-8 max-w-md w-full">
         <div className="flex justify-end">
           <button className="text-gray-400 hover:text-gray-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                clipRule="evenodd"
-              />
-            </svg>
+
           </button>
         </div>
         <div className="text-center mb-8">
           <img
             src="/apple-logo.svg"
-            alt="Orange Logo"
+            alt="Tenderly Logo"
             className="mx-auto h-12 mb-4"
           />
           <h2 className="text-2xl font-bold">Sign In or Sign Up</h2>
@@ -90,14 +79,14 @@ const SignInForm = () => {
           />
           <p className="text-sm mb-6 text-gray-600">
             <a href="#" className="text-blue-500 hover:underline">
-              Forgot Orange ID or password?
+              Forgot Tenderly ID or password?
             </a>
           </p>
           <p className="text-xs mb-6 text-gray-600">
-            Your Orange ID information is used to allow you to sign in securely and access your
-            data. Orange records certain data for security, support, and reporting purposes. If you
-            agree, Orange may also use your Orange ID information to send you marketing emails and
-            communications, including based on your use of Orange services.
+            Your Tenderly ID information is used to allow you to sign in securely and access your
+            data. Tenderly records certain data for security, support, and reporting purposes. If you
+            agree, Tenderly may also use your Tenderly ID information to send you marketing emails and
+            communications, including based on your use of Tenderly services.
             <a href="#" className="text-blue-500 hover:underline">
               Review your data & privacy details
             </a>
@@ -106,14 +95,14 @@ const SignInForm = () => {
           <div className="mx-auto">
             <button
               onClick={handleSubmit}
-              class="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-300"
+              className="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-300"
             >
               Sign In
             </button>
 
             <button
               onClick={handleSignUp}
-              class="w-full py-2 px-4 mt-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-300"
+              className="w-full py-2 px-4 mt-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-300"
             >
               Sign Up
             </button>

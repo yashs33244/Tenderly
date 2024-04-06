@@ -2,9 +2,16 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
 
+
+
 // Define schema for tender form data
 const tenderSchema = new mongoose.Schema({
     // _id: false,
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     nameOfWork: {
         type: String,
         required: true
@@ -14,11 +21,11 @@ const tenderSchema = new mongoose.Schema({
         required: true
     },
     approxCost: {
-        type: String,
+        type: Number,
         required: true
     },
     bidSecurity: {
-        type: String,
+        type: Number,
         required: true
     },
     address: {
@@ -32,7 +39,11 @@ const tenderSchema = new mongoose.Schema({
     tenderNumber: {
         type: String,
         required: true
-    }
+    },
+    numberOfBids: {
+        type: Number,
+        default: 0
+    },
 });
 
 const Tender = mongoose.model('Tender', tenderSchema);
@@ -41,11 +52,12 @@ const Tender = mongoose.model('Tender', tenderSchema);
 const tenderValidationSchema = Joi.object({
     nameOfWork: Joi.string().required(),
     location: Joi.string().required(),
-    approxCost: Joi.string().required(),
-    bidSecurity: Joi.string().required(),
+    approxCost: Joi.number().required(),
+    bidSecurity: Joi.number().required(),
     address: Joi.string().required(),
     uploadDateTime: Joi.date().required(),
-    tenderNumber: Joi.string().required()
+    tenderNumber: Joi.string().required(),
+    numberOfBids: Joi.number()
 });
 
 // Validate tender data before saving to the database

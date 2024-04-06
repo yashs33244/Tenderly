@@ -5,6 +5,7 @@ const passwordComplexity = require('joi-password-complexity');
 
 
 const userSchema = new mongoose.Schema({
+
     firstName:{
         type: String,
         required: true,
@@ -28,7 +29,17 @@ const userSchema = new mongoose.Schema({
         required: true,
         min: 6,
         max: 1024
-    }  
+    },
+    bidTo:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Tender',
+        default: null
+    },
+    biddedAmount:{
+        type: Number,
+        default: 0
+    }
+
 })
 
 userSchema.methods.generateAuthToken = function(){

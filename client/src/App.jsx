@@ -7,6 +7,8 @@ import SignInForm from './components/Signin';
 import CreateTender from './components/CreateTender'; 
 import { useNavigate } from 'react-router-dom'; 
 import Tenders from './pages/Tenders';
+import Dashboard from './pages/Dashboard';
+
 
 
 function App() {
@@ -25,6 +27,7 @@ function App() {
           <> {/* Wrap protected routes */}
             <Route path='/' element={<MainComponent navigateToCreateTender={navigateToCreateTender} />} /> 
             <Route path='/bidding-tenders' element={<Tenders />} />
+            <Route path='/dashboard' element={<Dashboard />} />
             
           </>
         ) : (
