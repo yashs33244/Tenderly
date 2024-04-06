@@ -74,12 +74,12 @@ const Navbar = () => {
       
       <div className='flex justify-between items-center'>
         <SearchComponent />
-        <button
+        {/* <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-4"
           onClick={handleLogout}
         >
           Logout
-        </button>
+        </button> */}
         <div className="sidebar py-2 px-4 rounded ml-4" onClick={toggleDropdown}>
           {/* <FontAwesomeIcon icon={faBars} /> */}
           <Profile isOpen={isOpen} isClose={closeDropdown} />

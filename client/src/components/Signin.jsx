@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import MainComponent from './Main';
 import SignUpForm from './Signup';
+import background from '../assets/backg.png';
+import logo from '../assets/logo.png';
 
 const SignInForm = () => {
   const [error, setError] = useState("");
@@ -44,8 +46,8 @@ const SignInForm = () => {
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-white">
-      <div className="bg-gray-100 text-gray-800 rounded-lg p-8 max-w-md w-full">
+    <div className="fixed inset-0 flex items-center justify-center bg-white bg-cover bg-no-repeat bg-center" style={{ backgroundImage: `url(${background})` }}>
+    <div className="bg-gray-100 text-black rounded-lg p-8 max-w-md w-full shadow-lg" style={{ backdropFilter: 'blur(20px)', backgroundColor: 'rgba(255, 255, 255, 0.5)' }}>
         <div className="flex justify-end">
           <button className="text-gray-400 hover:text-gray-600">
 
@@ -53,7 +55,7 @@ const SignInForm = () => {
         </div>
         <div className="text-center mb-8">
           <img
-            src="/apple-logo.svg"
+            src={logo}
             alt="Tenderly Logo"
             className="mx-auto h-12 mb-4"
           />
@@ -82,7 +84,7 @@ const SignInForm = () => {
               Forgot Tenderly ID or password?
             </a>
           </p>
-          <p className="text-xs mb-6 text-gray-600">
+          <p className="text-xs mb-6 text-black-600">
             Your Tenderly ID information is used to allow you to sign in securely and access your
             data. Tenderly records certain data for security, support, and reporting purposes. If you
             agree, Tenderly may also use your Tenderly ID information to send you marketing emails and

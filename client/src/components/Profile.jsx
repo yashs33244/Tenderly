@@ -1,7 +1,35 @@
 import React from 'react';
+import { useState ,useEffect} from 'react';
 import picture from '../assets/yash.jpeg';
+import axios from 'axios';
+
 
 const Profile = ({ isOpen, isClose }) => {
+    const [email, setEmail] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    useEffect(() => {
+        const fetchData = async () => {
+            const token = localStorage.getItem('token');
+            const { data } = await axios.get('http://localhost:3000/api/auth/profile', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            setFirstName(data.firstName);
+            setLastName(data.lastName);
+            setEmail(data.email);
+        };
+        fetchData();
+    },[])
+    const hanldleDashboard = () => {
+    window.location = '/dashboard';
+    };
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        window.location = '/login';
+      };
+    
   return (
     <div className="relative">
       <img
@@ -20,11 +48,11 @@ const Profile = ({ isOpen, isClose }) => {
         className={`z-10 ${isOpen ? '' : 'hidden'} bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 absolute top-12 right-0`}
       >
         <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-          <div>Bonnie Green</div>
-          <div className="font-medium truncate">name@flowbite.com</div>
+          <div>Hi {firstName} {lastName}</div>
+          <div className="font-medium truncate">{email}</div>
         </div>
         <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
-          <li>
+          <li onClick={hanldleDashboard}>
             <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
           </li>
           <li>
@@ -35,7 +63,9 @@ const Profile = ({ isOpen, isClose }) => {
           </li>
         </ul>
         <div className="py-1">
-          <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+          <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+            onClick={handleLogout}  
+          >Sign out</a>
         </div>
       </div>
     </div>
