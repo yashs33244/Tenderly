@@ -2,7 +2,7 @@ import React from 'react';
 import SearchComponent from './Search';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import Sidebar from './Sidebar';
+// import Sidebar from './MySidebar';
 import { useState } from 'react';
 import Profile from './Profile';
 

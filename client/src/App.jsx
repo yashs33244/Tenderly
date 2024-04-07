@@ -8,6 +8,8 @@ import CreateTender from './components/CreateTender';
 import { useNavigate } from 'react-router-dom'; 
 import Tenders from './pages/Tenders';
 import Dashboard from './pages/Dashboard';
+import './charts/ChartjsConfig';
+import './css/style.css';
 
 
 
@@ -18,6 +20,7 @@ function App() {
   const navigateToCreateTender = () => {
     navigate('/create-tender');
   };
+  
   
 
   return (

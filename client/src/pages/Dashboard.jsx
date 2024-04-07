@@ -1,78 +1,111 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState } from 'react';
 
-const Dashboard = () => {
-  const [tenders, setTenders] = useState([]);
-  const [bids, setBids] = useState([]);
+import Sidebar from '../partials/Sidebar';
+import Header from '../partials/Header';
+import WelcomeBanner from '../partials/dashboard/WelcomeBanner';
+import DashboardAvatars from '../partials/dashboard/DashboardAvatars';
+import FilterButton from '../components/DropdownFilter';
+import Datepicker from '../components/Datepicker';
+import DashboardCard01 from '../partials/dashboard/DashboardCard01';
+import DashboardCard02 from '../partials/dashboard/DashboardCard02';
+import DashboardCard03 from '../partials/dashboard/DashboardCard03';
+import DashboardCard04 from '../partials/dashboard/DashboardCard04';
+import DashboardCard05 from '../partials/dashboard/DashboardCard05';
+import DashboardCard06 from '../partials/dashboard/DashboardCard06';
+import DashboardCard07 from '../partials/dashboard/DashboardCard07';
+import DashboardCard08 from '../partials/dashboard/DashboardCard08';
+import DashboardCard09 from '../partials/dashboard/DashboardCard09';
+import DashboardCard10 from '../partials/dashboard/DashboardCard10';
+import DashboardCard11 from '../partials/dashboard/DashboardCard11';
+import DashboardCard12 from '../partials/dashboard/DashboardCard12';
+import DashboardCard13 from '../partials/dashboard/DashboardCard13';
+import Banner from '../partials/Banner';
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:3000/api/tenders/all-tenders', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        setTenders(response.data.tenders || []); // Ensure tenders is always an array
-        setBids(response.data.bids || []); // Ensure bids is always an array
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+function Dashboard() {
 
-    fetchData();
-  }, []);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="md:flex">
-      <ul className="flex-column space-y space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400 md:me-4 mb-4 md:mb-0">
-        <li>
-          <Link to="/profile" className="inline-flex items-center px-4 py-3 text-white bg-blue-700 rounded-lg active w-full dark:bg-blue-600" aria-current="page">
-            <svg className="w-4 h-4 me-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"/>
-            </svg>
-            Profile
-          </Link>
-        </li>
-        <li>
-          <Link to="/dashboard" className="inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">
-            <svg className="w-4 h-4 me-2 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
-              <path d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z"/>
-            </svg>
-            Dashboard
-          </Link>
-        </li>
-        {/* Add other links */}
-      </ul>
-      <div className="p-6 bg-gray-50 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full">
-        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Profile Tab</h3>
-        <p className="mb-2">This is some placeholder content for the Profile tab's associated content. Clicking another tab will toggle the visibility of this one for the next.</p>
-        <p>The tab JavaScript swaps classes to control the content visibility and styling.</p> 
-        <ul className="mt-4 space-y-2">
-          <li>
-            {tenders.length > 0 ? (
-              tenders.map((tender, index) => (
-                <p key={index}>{tender.nameOfWork}</p>
-              ))
-            ) : (
-              <p>No tenders available</p>
-            )}
-          </li>
-          <li>
-            {bids.length > 0 ? (
-              bids.map((bid, index) => (
-                <p key={index}>{bid.bidAmount}</p>
-              ))
-            ) : (
-              <p>No bids available</p>
-            )}
-          </li>
-        </ul>
+    <div className="flex h-screen overflow-hidden">
+
+      {/* Sidebar */}
+      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+
+      {/* Content area */}
+      <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+
+        {/*  Site header */}
+        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+
+        <main>
+          <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
+
+            {/* Welcome banner */}
+            <WelcomeBanner />
+
+            {/* Dashboard actions */}
+            <div className="sm:flex sm:justify-between sm:items-center mb-8">
+
+              {/* Left: Avatars */}
+              <DashboardAvatars />
+
+              {/* Right: Actions */}
+              <div className="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
+                {/* Filter button */}
+                <FilterButton />
+                {/* Datepicker built with flatpickr */}
+                <Datepicker />
+                {/* Add view button */}
+                <button className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
+                    <svg className="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
+                        <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
+                    </svg>
+                    <span className="hidden xs:block ml-2">Add view</span>
+                </button>                
+              </div>
+
+            </div>
+
+            {/* Cards */}
+            <div className="grid grid-cols-12 gap-6">
+
+              {/* Line chart (Acme Plus) */}
+              <DashboardCard01 />
+              {/* Line chart (Acme Advanced) */}
+              <DashboardCard02 />
+              {/* Line chart (Acme Professional) */}
+              <DashboardCard03 />
+              {/* Bar chart (Direct vs Indirect) */}
+              <DashboardCard04 />
+              {/* Line chart (Real Time Value) */}
+              <DashboardCard05 />
+              {/* Doughnut chart (Top Countries) */}
+              <DashboardCard06 />
+              {/* Table (Top Channels) */}
+              <DashboardCard07 />
+              {/* Line chart (Sales Over Time) */}
+              <DashboardCard08 />
+              {/* Stacked bar chart (Sales VS Refunds) */}
+              <DashboardCard09 />
+              {/* Card (Customers) */}
+              <DashboardCard10 />
+              {/* Card (Reasons for Refunds) */}
+              <DashboardCard11 />
+              {/* Card (Recent Activity) */}
+              <DashboardCard12 />
+              {/* Card (Income/Expenses) */}
+              <DashboardCard13 />
+              
+            </div>
+
+          </div>
+        </main>
+
+        <Banner />
+
       </div>
     </div>
   );
-};
+}
 
 export default Dashboard;

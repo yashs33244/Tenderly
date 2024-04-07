@@ -5,7 +5,7 @@ import HeroSection from './Hero';
 import VerticalGrid from './VerticalGrid';
 import Footer from './Footer';
 import FeatureCard from './FeatureCard';
-import Sidebar from './Sidebar';
+import Sidebar from './MySidebar';
 import { useState, useEffect} from 'react';
 import Dashboard from '../pages/Dashboard';
 
