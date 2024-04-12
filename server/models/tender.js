@@ -40,10 +40,23 @@ const tenderSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    phoneNumber: {
+        type: String
+    },
+    video: {
+        type: String
+    },
+    pdf: {
+        type: String
+    },
+    active: {
+        type: Boolean,
+        default: true
+    },
     numberOfBids: {
         type: Number,
         default: 0
-    },
+    }
 });
 
 const Tender = mongoose.model('Tender', tenderSchema);
@@ -57,8 +70,13 @@ const tenderValidationSchema = Joi.object({
     address: Joi.string().required(),
     uploadDateTime: Joi.date().required(),
     tenderNumber: Joi.string().required(),
+    phoneNumber: Joi.string(),
+    video: Joi.string(),
+    pdf: Joi.string(),
+    active: Joi.boolean(),
     numberOfBids: Joi.number()
 });
+
 
 // Validate tender data before saving to the database
 const validateTender = (tenderData) => {

@@ -1,56 +1,93 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import moment from 'moment';
 
-const TenderCard = ({ title, tenderNumber, location, approxCost, bidSecurity, uploadDateTime }) => {
-  const [showBidSection, setShowBidSection] = useState(false);
-  const [bidAmount, setBidAmount] = useState('');
+const TenderCard = ({ tenderId, title, tenderNumber, location, approxCost, bidSecurity, uploadDateTime, phoneNumber, video, pdf, numberOfBids, isActive }) => {
+  const [bidAmount, setBidAmount] = useState(0);
+  const token = localStorage.getItem('token');
 
-  const handleBidClick = () => {
-    setShowBidSection(!showBidSection);
+  
+  const handleBidSubmit = async () => {
+    try {
+      // Make a request to submit bid
+      await axios.post(`http://localhost:3000/api/bids/submit-bid/${tenderId}`, {
+        bidAmount,
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // Reset bid amount after submission
+      setBidAmount(0);
+      // Notify the user about successful bid submission
+      alert('Bid submitted successfully!');
+    } catch (error) {
+      console.error('Error submitting bid:', error);
+      alert('Failed to submit bid. Please try again later.');
+    }
   };
 
-  const handleBidSubmit = (event) => {
-    event.preventDefault();
-    // Add your logic to submit the bid amount
-    console.log("Bid amount:", bidAmount);
-  };
-
-  const handleDownloadPDF = () => {
-    // Add your logic to download the PDF
-    console.log("Downloading PDF...");
-  };
+  const isTenderExpired = moment(uploadDateTime).add(30, 'days').isBefore(moment());
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 flex flex-col sm:flex-row items-center justify-between">
-      <div className="flex-grow">
-        <h2 className="text-xl font-semibold">{title}</h2>
-        <div className="mt-2 flex flex-wrap gap-4">
-          <p><span className="font-semibold">Tender Number:</span> {tenderNumber}</p>
-          <p><span className="font-semibold">Location:</span> {location}</p>
-          <p><span className="font-semibold">Approximate Cost:</span> {approxCost}</p>
-          <p><span className="font-semibold">Bid Security:</span> {bidSecurity}</p>
-          <p><span className="font-semibold">Upload Date & Time:</span> {new Date(uploadDateTime).toLocaleString()}</p>
-        </div>
-      </div>
-      <div className="mt-4 sm:mt-0 flex flex-col items-end">
-        {/* Comments Section */}
-        <div className="mb-4">
-          <h3 className="text-lg font-semibold">Comments</h3>
-          {/* Add your comment section here */}
-        </div>
-        {/* Download PDF Button */}
-        <button onClick={handleDownloadPDF} className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md mb-4">Download PDF</button>
-        {/* Bid Section */}
-        {showBidSection && (
+    <div
+      className={`border-4 rounded-lg shadow-md p-6 ${isTenderExpired ? 'border-red-400' : 'border-green-400'}`}
+    >
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold">{title}</h2>
+        {!isTenderExpired && (
           <div>
-            <h3 className="text-lg font-semibold mb-2">Bid</h3>
-            <form onSubmit={handleBidSubmit} className="flex items-center">
-              <input type="number" value={bidAmount} onChange={(e) => setBidAmount(e.target.value)} placeholder="Enter Bid Amount" className="border border-gray-400 px-4 py-2 rounded-md mr-2" />
-              <button type="submit" className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md">Submit Bid</button>
-            </form>
+            <input
+            type="number"
+            className="w-full border border-gray-300 rounded-md py-2 px-4 mt-2"
+            value={bidAmount}
+            onChange={(e) => setBidAmount(e.target.value)}
+            />
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2" onClick={handleBidSubmit}>
+            Submit Bid
+            </button>
           </div>
         )}
-        {/* Bid Now Button */}
-        <button onClick={handleBidClick} className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">Bid Now</button>
+      </div>
+
+      <div className="grid grid-cols-2 gap-4 mt-4">
+        <p className="text-gray-700">
+          <span className="font-bold">Tender ID:</span> {tenderId}
+        </p>
+        <p className="text-gray-700">
+          <span className="font-bold">Tender Number:</span> {tenderNumber}
+        </p>
+        <p className="text-gray-700">
+          <span className="font-bold">Location:</span> {location}
+        </p>
+        <p className="text-gray-700">
+          <span className="font-bold">Approximate Cost:</span> {approxCost}
+        </p>
+        <p className="text-gray-700">
+          <span className="font-bold">Bid Security:</span> {bidSecurity}
+        </p>
+        <p className="text-gray-700">
+          <span className="font-bold">Upload Date and Time:</span> {uploadDateTime}
+        </p>
+        <p className="text-gray-700">
+          <span className="font-bold">Phone Number:</span> {phoneNumber}
+        </p>
+        <p className="text-gray-700">
+          <span className="font-bold">Video Uploaded:</span>{' '}
+          <a href={video} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700">
+            {video}
+          </a>
+        </p>
+        <p className="text-gray-700">
+          <span className="font-bold">PDF:</span>{' '}
+          <a href={pdf} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700">
+            {pdf}
+          </a>
+        </p>
+        <p className="text-gray-700">
+          <span className="font-bold">Number of Bids:</span> {numberOfBids}
+        </p>
       </div>
     </div>
   );

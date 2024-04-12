@@ -9,13 +9,13 @@ const userSchema = new mongoose.Schema({
     firstName:{
         type: String,
         required: true,
-        min: 6,
+        min: 4,
         max: 255
     },
     lastName:{
         type: String,
         required: true,
-        min: 6,
+        min: 4,
         max: 255
     },
     email:{
@@ -30,15 +30,14 @@ const userSchema = new mongoose.Schema({
         min: 6,
         max: 1024
     },
-    bidTo:{
+    publishedTenders: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Tender',
-        default: null
-    },
-    biddedAmount:{
-        type: Number,
-        default: 0
-    }
+        ref: 'Tender'
+    }],
+    bids: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Bid'
+    }]
 
 })
 
@@ -53,7 +52,9 @@ const validateUser = (data)=>{
         firstName: joi.string().required().label('First Name'),
         lastName: joi.string().required().label('Last Name'),
         email: joi.string().email().required().label('Email'),
-        password: passwordComplexity().required().label('Password')
+        password: passwordComplexity().required().label('Password'),
+        publishedTenders: joi.array().items(joi.object()),
+        bids: joi.array().items(joi.object())
     })
     return schema.validate(data);
 }

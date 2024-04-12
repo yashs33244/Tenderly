@@ -6,7 +6,7 @@ const connection = require('./db');
 const userRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');
 const tenderRoutes = require('./routes/tender');
-
+const bidRoutes = require('./routes/bid');
 
 
 
@@ -21,7 +21,7 @@ app.use(cors());
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/tenders',tenderRoutes);
-
+app.use('/api/bids',bidRoutes);
 
 
 

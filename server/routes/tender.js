@@ -33,9 +33,9 @@ const authenticate = async (req, res, next) => {
 router.post('/submit-form', authenticate, async (req, res) => {
   try {
     // Extract form data from request body
-    const { nameOfWork, location, approxCost, bidSecurity, address, uploadDateTime, tenderNumber } = req.body;
-    // Retrieve user ID from decoded token attached to request
+    const { nameOfWork, location, approxCost, bidSecurity, address, uploadDateTime, tenderNumber, phoneNumber, video, pdf } = req.body;
     
+    // Retrieve user ID from decoded token attached to request
     const userId = req.user._id;
     
     // Create a new Tender object
@@ -48,6 +48,10 @@ router.post('/submit-form', authenticate, async (req, res) => {
       address,
       uploadDateTime,
       tenderNumber,
+      phoneNumber,
+      video,
+      pdf,
+      active: true, // Set tender as active by default
       numberOfBids: 0
     });
 
@@ -63,14 +67,10 @@ router.post('/submit-form', authenticate, async (req, res) => {
 });
 
 
+
 router.get('/all-tenders', async (req, res) => {
   try {
     // Fetch all tenders from the database
-    const token = req.headers.authorization;
-    if(!token){
-      return res.status(401).json({message: 'Unauthorized: Token missing or invalid format'});
-    }
-
     const allTenders = await Tender.find();
 
     // Respond with the list of tenders
@@ -82,6 +82,6 @@ router.get('/all-tenders', async (req, res) => {
 });
 
 
-router.put('/bid/:tenderId', authenticate, async (req, res) => {})
+
 
 module.exports = router;

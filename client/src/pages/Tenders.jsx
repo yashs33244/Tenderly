@@ -17,7 +17,7 @@ const Tenders = () => {
     if (token) {
       axios.get('http://localhost:3000/api/tenders/all-tenders', {
         headers: {
-          Authorization: token
+          Authorization: `Bearer ${token}`,
         }
       })
         .then((response) => {
@@ -50,7 +50,7 @@ const Tenders = () => {
           <p className="text-gray-600 mb-8">Bid anytime anywhere</p>
           {/* Render fetched tender data here */}
           <VerticalGrid tenders={tendersData} />
-            <TenderCard/>
+            {/* <TenderCard/> */}
         </div>
       </div>
       <Footer />
