@@ -9,19 +9,39 @@ const Profile = ({ isOpen, isClose }) => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     useEffect(() => {
-        const fetchData = async () => {
-            const token = localStorage.getItem('token');
-            const { data } = await axios.get('http://localhost:3000/api/auth/profile', {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-            setFirstName(data.firstName);
-            setLastName(data.lastName);
-            setEmail(data.email);
-        };
-        fetchData();
-    },[])
+      const fetchData = async () => {
+          try {
+              const token = localStorage.getItem('token');
+              if (!token) {
+                  // Handle case where token is missing
+                  console.error('Token is missing');
+                  return;
+              }
+  
+              const response = await axios.get('http://localhost:3000/api/auth/profile', {
+                  headers: {
+                      'Authorization': `Bearer ${token}`
+                  }
+              });
+  
+              const { data } = response;
+              if (!data.email) {
+                  // Handle case where email is missing in the response
+                  console.error('Email is missing in the response');
+                  return;
+              }
+  
+              setFirstName(data.firstName || '');
+              setLastName(data.lastName || '');
+              setEmail(data.email);
+          } catch (error) {
+              // Handle any errors that occur during the request
+              console.error('Error fetching user profile:', error);
+          }
+      };
+      fetchData();
+  }, []);
+  
     const hanldleDashboard = () => {
     window.location = '/dashboard';
     };

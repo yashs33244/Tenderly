@@ -43,44 +43,45 @@ router.post('/', async (req, res) => {
 });
 
 const authenticate = async (req, res, next) => {
-  
     const token = req.headers.authorization;
-  
+
     if (token && token.startsWith('Bearer ')) {
-      // Extract token without 'Bearer ' prefix
-      const tokenValue = token.split(' ')[1];
-      
-      try {
-        // Verify token
-        const decodedToken = jwt.verify(tokenValue, process.env.JWTPRIVATEKEY);
-        
-        // Attach user information to request object
-        req.user = decodedToken;
-        next();
-      } catch (error) {
-        console.error(`Error verifying token: ${error}`);
-        return res.status(401).json({ message: 'Unauthorized: Invalid token' });
-      }
-    } else {
-      res.status(401).json({ message: 'Unauthorized: Token missing or invalid format' });
-    }
-  };
+        // Extract token without 'Bearer ' prefix
+        const tokenValue = token.split(' ')[1];
 
-  router.get('/profile',async (req, res) => {
-    try {
-        const token = req.headers.authorization;
-        if(!token){
-            return res.status(401).send('Unauthorized: Token missing');
+        try {
+            // Verify token
+            const decodedToken = jwt.verify(tokenValue, process.env.JWTPRIVATEKEY);
+
+            // Fetch user from database using _id from decoded token
+            const user = await User.findById(decodedToken._id);
+
+            if (!user) {
+                return res.status(401).json({ message: 'Unauthorized: User not found' });
+            }
+
+            // Attach user information to request object
+            req.user = user;
+            next();
+        } catch (error) {
+            console.error(`Error verifying token: ${error}`);
+            return res.status(401).json({ message: 'Unauthorized: Invalid token' });
         }
-        const userId = req.user;
-        const userEmail = await User.findOne({ userId });
-        res.status(200).send(userEmail);
+    } else {
+        res.status(401).json({ message: 'Unauthorized: Token missing or invalid format' });
+    }
+};
 
+router.get('/profile', authenticate, async (req, res) => {
+    try {
+        const userId = req.user;
+        res.status(200).json({ email: userId.email, firstName: userId.firstName, lastName: userId.lastName});
     } catch (error) {
         console.error('Error fetching user profile:', error);
         res.status(500).send('Internal server error');
     }
 });
+
 
 
 
