@@ -10,7 +10,7 @@ const TenderCard = ({ tenderId, title, tenderNumber, location, approxCost, bidSe
   const handleBidSubmit = async () => {
     try {
       // Make a request to submit bid
-      await axios.post(`http://localhost:3000/api/bids/submit-bid/${tenderId}`, {
+      await axios.post(`https://tenderly.onrender.com/api/bids/submit-bid/${tenderId}`, {
         bidAmount,
       }, {
         headers: {

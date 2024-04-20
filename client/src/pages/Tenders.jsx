@@ -15,7 +15,7 @@ const Tenders = () => {
 
     // If token exists, include it in the request headers
     if (token) {
-      axios.get('http://localhost:3000/api/tenders/all-tenders', {
+      axios.get('https://tenderly.onrender.com/api/tenders/all-tenders', {
         headers: {
           Authorization: `Bearer ${token}`,
         }

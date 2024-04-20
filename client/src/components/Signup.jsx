@@ -23,7 +23,7 @@ const SignUpForm = () => {
     e.preventDefault();
 
     try {
-      const url = 'http://localhost:3000/api/users';
+      const url = 'https://tenderly.onrender.com/api/users';
       const response = await axios.post(url, data);
 
       // Check if registration was successful

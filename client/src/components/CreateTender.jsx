@@ -45,7 +45,7 @@ const CreateTender = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3000/api/tenders/submit-form', formData, {
+      await axios.post('https://tenderly.onrender.com/api/tenders/submit-form', formData, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },

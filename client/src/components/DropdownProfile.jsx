@@ -15,7 +15,7 @@ function DropdownProfile({
     useEffect(() => {
         const fetchData = async () => {
             const token = localStorage.getItem('token');
-            const { data } = await axios.get('http://localhost:3000/api/auth/profile', {
+            const { data } = await axios.get('https://tenderly.onrender.com/api/auth/profile', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

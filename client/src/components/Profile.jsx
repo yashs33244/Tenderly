@@ -18,7 +18,7 @@ const Profile = ({ isOpen, isClose }) => {
                   return;
               }
   
-              const response = await axios.get('http://localhost:3000/api/auth/profile', {
+              const response = await axios.get('https://tenderly.onrender.com/api/auth/profile', {
                   headers: {
                       'Authorization': `Bearer ${token}`
                   }
