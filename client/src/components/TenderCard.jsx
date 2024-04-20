@@ -29,27 +29,15 @@ const TenderCard = ({ tenderId, title, tenderNumber, location, approxCost, bidSe
   };
 
   const isTenderExpired = moment(uploadDateTime).add(30, 'days').isBefore(moment());
+  const isTenderActive = isActive && !isTenderExpired;
 
   return (
     <div
-      className={`border-4 rounded-lg shadow-md p-6 ${isTenderExpired ? 'border-red-400' : 'border-green-400'}`}
+      className={`border-4 rounded-lg shadow-md p-6 ${ isTenderActive? 'border-red-400' : 'border-green-400'}`}
     >
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold">{title}</h2>
-        {!isTenderExpired && (
-          <div>
-            <input
-            type="number"
-            className="w-full border border-gray-300 rounded-md py-2 px-4 mt-2"
-            value={bidAmount}
-            onChange={(e) => setBidAmount(e.target.value)}
-            />
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2" onClick={handleBidSubmit}>
-            Submit Bid
-            </button>
-          </div>
-        )}
-      </div>
+        
 
       <div className="grid grid-cols-2 gap-4 mt-4">
         <p className="text-gray-700">
@@ -88,6 +76,20 @@ const TenderCard = ({ tenderId, title, tenderNumber, location, approxCost, bidSe
         <p className="text-gray-700">
           <span className="font-bold">Number of Bids:</span> {numberOfBids}
         </p>
+        {!isTenderExpired && (
+          <div>
+            <input
+            type="number"
+            className="w-full border border-gray-300 rounded-md py-2 px-4 mt-2"
+            value={bidAmount}
+            onChange={(e) => setBidAmount(e.target.value)}
+            />
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2" onClick={handleBidSubmit}>
+            Submit Bid
+            </button>
+          </div>
+        )}
+      </div>
       </div>
     </div>
   );
