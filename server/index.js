@@ -15,8 +15,16 @@ connection();
 
 //middlewares
 app.use(express.json());
-app.use(cors());
-
+app.use(cors(
+    {
+        origin: 'https://tenderly.vercel.app/',
+        methods: 'GET,PUT,POST,DELETE',
+        allowedHeaders: 'Content-Type, Authorization, Origin, X-Requested-With, Accept'
+    }
+));
+app.get('/', (req, res) => {
+    res.send('Welcome to the server');
+});
 //routes
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
