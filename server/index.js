@@ -17,9 +17,9 @@ connection();
 app.use(express.json());
 app.use(cors(
     {
-        origin: 'https://tenderly.vercel.app/',
-        methods: 'GET,PUT,POST,DELETE',
-        allowedHeaders: 'Content-Type, Authorization, Origin, X-Requested-With, Accept'
+        origin: ["https://tenderly.vercel.app"],
+        methods: ['GET,PUT,POST,DELETE'],
+        credentials: true
     }
 ));
 app.get('/', (req, res) => {
