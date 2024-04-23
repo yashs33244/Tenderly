@@ -2,6 +2,7 @@ import React from 'react';
 import { useState ,useEffect} from 'react';
 import picture from '../assets/yash.jpeg';
 import axios from 'axios';
+import { BASE_URL } from '../utils/url';
 
 
 const Profile = ({ isOpen, isClose }) => {
@@ -18,7 +19,7 @@ const Profile = ({ isOpen, isClose }) => {
                   return;
               }
   
-              const response = await axios.get('https://tenderly.onrender.com/api/auth/profile', {
+              const response = await axios.get(`${BASE_URL}/api/auth/profile`, {
                   headers: {
                       'Authorization': `Bearer ${token}`
                   }
@@ -49,6 +50,9 @@ const Profile = ({ isOpen, isClose }) => {
         localStorage.removeItem('token');
         window.location = '/login';
       };
+    const handleMyTenders = () =>{
+        window.location = '/my-tenders';
+    }
     
   return (
     <div className="relative">
@@ -76,7 +80,7 @@ const Profile = ({ isOpen, isClose }) => {
             <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
           </li>
           <li>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+            <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" onClick={handleMyTenders}>My Tenders</a>
           </li>
           <li>
             <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>

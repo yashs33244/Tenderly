@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { BASE_URL } from '../../utils/url';
 
 function DashboardCard10() {
   const [tenders, setTenders] = useState([]);
@@ -10,7 +11,7 @@ function DashboardCard10() {
 
   const fetchTenders = async () => {
     try {
-      const response = await axios.get('https://tenderly.onrender.com/api/tenders/all-tenders');
+      const response = await axios.get(`${BASE_URL}/api/tenders/all-tenders`);
       setTenders(response.data);
     } catch (error) {
       console.error('Error fetching tenders:', error);
@@ -19,7 +20,7 @@ function DashboardCard10() {
 
   const toggleActiveStatus = async (tenderId) => {
     try {
-      await axios.put(`https://tenderly.onrender.com/api/tenders/${tenderId}/toggle-active`);
+      await axios.put(`${BASE_URL}/api/tenders/${tenderId}/toggle-active`);
       fetchTenders();
     } catch (error) {
       console.error('Error toggling active status:', error);
@@ -28,7 +29,7 @@ function DashboardCard10() {
 
   const deleteTender = async (tenderId) => {
     try {
-      await axios.delete(`https://tenderly.onrender.com/api/tenders/${tenderId}`);
+      await axios.delete(`${BASE_URL}/api/tenders/${tenderId}`);
       fetchTenders();
     } catch (error) {
       console.error('Error deleting tender:', error);
@@ -37,7 +38,7 @@ function DashboardCard10() {
 
   const fetchBidderInfo = async (tenderId, bidId) => {
     try {
-      const response = await axios.get(`https://tenderly.onrender.com/api/bids/${bidId}/user`);
+      const response = await axios.get(`${BASE_URL}/api/bids/${bidId}/user`);
       console.log('Bidder information:', response.data);
     } catch (error) {
       console.error('Error fetching bidder information:', error);

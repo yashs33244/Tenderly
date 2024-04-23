@@ -10,6 +10,7 @@ import Tenders from './pages/Tenders';
 import Dashboard from './pages/Dashboard';
 import './charts/ChartjsConfig';
 import './css/style.css';
+import MyTenders from './pages/MyTenders';
 
 
 
@@ -31,6 +32,7 @@ function App() {
             <Route path='/' element={<MainComponent navigateToCreateTender={navigateToCreateTender} />} /> 
             <Route path='/bidding-tenders' element={<Tenders />} />
             <Route path='/dashboard' element={<Dashboard />} />
+            <Route path='/my-tenders' element={<MyTenders />} />
             
           </>
         ) : (

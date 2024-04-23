@@ -17,7 +17,7 @@ connection();
 app.use(express.json());
 app.use(cors(
     {
-        origin: ["https://tenderly.vercel.app"],
+        origin: ["https://tenderly.vercel.app","http://localhost:5173"],
         methods: ['GET,PUT,POST,DELETE'],
         credentials: true
     }

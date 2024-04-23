@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Transition from '../utils/Transition';
-import axios from 'axios';  
+import axios from 'axios';
+import { BASE_URL } from '../utils/url';  
 
 import UserAvatar from '../images/user-avatar-32.png';
 
@@ -15,7 +16,7 @@ function DropdownProfile({
     useEffect(() => {
         const fetchData = async () => {
             const token = localStorage.getItem('token');
-            const { data } = await axios.get('https://tenderly.onrender.com/api/auth/profile', {
+            const { data } = await axios.get(`${BASE_URL}/api/auth/profile`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

@@ -75,7 +75,10 @@ const authenticate = async (req, res, next) => {
 router.get('/profile', authenticate, async (req, res) => {
     try {
         const userId = req.user;
-        res.status(200).json({ email: userId.email, firstName: userId.firstName, lastName: userId.lastName});
+        res.status(200).json({ email: userId.email, 
+                                firstName: userId.firstName, 
+                                lastName: userId.lastName,
+                                _id: userId._id });
     } catch (error) {
         console.error('Error fetching user profile:', error);
         res.status(500).send('Internal server error');

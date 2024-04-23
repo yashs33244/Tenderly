@@ -3,6 +3,7 @@ import Navbar from './Navbar';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import axios from 'axios';
+import { BASE_URL } from '../utils/url';
 
 const CreateTender = () => {
   let formRef = null;
@@ -45,7 +46,7 @@ const CreateTender = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('https://tenderly.onrender.com/api/tenders/submit-form', formData, {
+      await axios.post(`${BASE_URL}/api/tenders/submit-form`, formData, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },

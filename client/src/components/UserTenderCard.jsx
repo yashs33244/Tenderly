@@ -1,44 +1,29 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import moment from 'moment';
-import { BASE_URL } from '../utils/url';
+import axios from 'axios';
+import { BASE_URL } from '../utils/url';    
 
-const TenderCard = ({ tennderUser,tenderId, title, tenderNumber, location, approxCost, bidSecurity, uploadDateTime, phoneNumber, video, pdf, numberOfBids, isActive }) => {
-  const [bidAmount, setBidAmount] = useState(0);
-  const token = localStorage.getItem('token');
-  const [tenderOwner, setTenderOwner] = useState(tennderUser); 
-  const loggedInUser = localStorage.getItem('userId');
 
+const UserTenderCard = ({ tenderId, title, tenderNumber, location, approxCost, bidSecurity, uploadDateTime, phoneNumber, video, pdf, numberOfBids, isActive }) => {
+    const [isTenderActive, setIsTenderActive] = useState(isActive);
+    const isTenderExpired = moment(uploadDateTime).add(30, 'days').isBefore(moment());
   
-  const handleBidSubmit = async () => {
-    try {
-      // Make a request to submit bid
-      await axios.post(`${BASE_URL}/api/bids/submit-bid/${tenderId}`, {
-        bidAmount,
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      // Reset bid amount after submission
-      setBidAmount(0);
-      // Notify the user about successful bid submission
-      alert('Bid submitted successfully!');
-    } catch (error) {
-      console.error('Error submitting bid:', error);
-      alert('Failed to submit bid. Please try again later.');
-    }
-  };
-
-  const isTenderExpired = moment(uploadDateTime).add(30, 'days').isBefore(moment());
-  const isTenderActive = isActive && !isTenderExpired;
-  console.log(isActive);
-  
+    const handleToggleTender = async () => {
+      try {
+        const response = await axios.put(`${BASE_URL}/api/tenders/close-tender/${tenderId}`);
+        if (response.status === 200) {
+          setIsTenderActive(!isTenderActive);
+        }
+      } catch (error) {
+        console.error('Error toggling tender:', error);
+      }
+    };
 
   return (
     <div
-      className={`border-4 rounded-lg shadow-md p-6 ${ !isTenderActive? 'border-red-400' : 'border-green-400'}`}
+      className={`border-4 rounded-lg shadow-md p-6 ${
+          isTenderActive ? 'border-green-400' : 'border-red-400'
+      }`}
     >
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold">{title}</h2>
@@ -88,27 +73,21 @@ const TenderCard = ({ tennderUser,tenderId, title, tenderNumber, location, appro
             View PDF
           </a>
         </p>
-
+        
         <p className="text-gray-700">
           <span className="font-bold">Number of Bids:</span> {numberOfBids}
         </p>
-        { isTenderActive && !isTenderExpired && tenderOwner !== loggedInUser && (
-          <div>
-            <input
-              type="number"
-              className="w-full border border-gray-300 rounded-md py-2 px-4 mt-2"
-              value={bidAmount}
-              onChange={(e) => setBidAmount(e.target.value)}
-            />
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2" onClick={handleBidSubmit}>
-              Submit Bid
-            </button>
-          </div>
-        )}
       </div>
+
+        <button className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-black focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800" onClick={handleToggleTender}>
+        <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white               white:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+        Pink to orange
+        </span>
+        </button>
       </div>
+      
     </div>
   );
 };
 
-export default TenderCard;
+export default UserTenderCard;

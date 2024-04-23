@@ -5,6 +5,7 @@ import MainComponent from './Main';
 import SignUpForm from './Signup';
 import background from '../assets/backg.png';
 import logo from '../assets/logo.png';
+import { BASE_URL } from '../utils/url';
 
 const SignInForm = () => {
   const [error, setError] = useState("");
@@ -25,7 +26,7 @@ const SignInForm = () => {
     e.preventDefault();
 
     try {
-      const url = 'https://tenderly.onrender.com/api/auth';
+      const url = `${BASE_URL}/api/auth`;
       const { data: res } = await axios.post(url, data);
       localStorage.setItem('token', res.data);
       setLoggedIn(true);

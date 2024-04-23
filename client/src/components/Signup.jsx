@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { BASE_URL } from '../utils/url';
 
 const SignUpForm = () => {
   const [error, setError] = useState("");
@@ -23,7 +24,7 @@ const SignUpForm = () => {
     e.preventDefault();
 
     try {
-      const url = 'https://tenderly.onrender.com/api/users';
+      const url = `${BASE_URL}/api/users`;
       const response = await axios.post(url, data);
 
       // Check if registration was successful

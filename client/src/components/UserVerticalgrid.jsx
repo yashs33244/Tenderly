@@ -1,13 +1,12 @@
 import React from 'react';
-import TenderCard from './TenderCard';
+import UserTenderCard from './UserTenderCard';
 
 const VerticalGrid = ({ tenders }) => {
   return (
     <div className="grid grid-cols-1 gap-6">
       {tenders.map((tender) => (
-        <TenderCard
+        <UserTenderCard
           key={tender._id} // Assuming `_id` is a unique identifier for each tender
-          tenderUser = {tender.user}
           title={tender.nameOfWork}
           tenderId = {tender._id}
           tenderNumber={tender.tenderNumber}
