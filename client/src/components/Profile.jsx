@@ -9,6 +9,8 @@ const Profile = ({ isOpen, isClose }) => {
     const [email, setEmail] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+
+
     useEffect(() => {
       const fetchData = async () => {
           try {
@@ -53,6 +55,27 @@ const Profile = ({ isOpen, isClose }) => {
     const handleMyTenders = () =>{
         window.location = '/my-tenders';
     }
+
+    const handleHome = (e) => {
+      e.preventDefault();
+      window.location.href = '/';
+  }
+  const handleHowItWorks = (e) => {
+      e.preventDefault();
+      window.location.href = '/how-it-works';
+  }
+  const handleRegister = (e) => {
+      e.preventDefault();
+      window.location.href = '/create-tender';
+  }
+  const handleTenders = (e) => {
+      e.preventDefault();
+      window.location.href = '/bidding-tenders';
+  }
+  const handleContact = (e) => {
+      e.preventDefault();
+      window.location.href = '/contact';
+  }
     
   return (
     <div className="relative">
@@ -83,8 +106,18 @@ const Profile = ({ isOpen, isClose }) => {
             <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" onClick={handleMyTenders}>My Tenders</a>
           </li>
           <li>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+            <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" onClick={handleRegister}>Publish</a>
           </li>
+          <li>
+            <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" onClick={handleTenders}>Tenders</a>
+          </li>
+          <li>
+            <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" onClick={handleContact}>Contact</a>
+          </li>
+          <li>
+            <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" onClick={handleHowItWorks}>How it works</a>
+          </li>
+       
         </ul>
         <div className="py-1">
           <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"

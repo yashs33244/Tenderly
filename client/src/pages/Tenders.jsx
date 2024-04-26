@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';  
-import HeroSection from '../components/Hero';
+import HeroSection3 from '../components/HeroSection3';
 import VerticalGrid from '../components/VerticalGrid';
 import axios from 'axios';
 import TenderCard from '../components/TenderCard';
@@ -30,9 +30,7 @@ const Tenders = () => {
     }
   }, []);
 
-  const handleSubmit = () => {
-    window.location = '/create-tender';
-  }
+
 
   return (
     <div className="bg-white">
@@ -40,7 +38,7 @@ const Tenders = () => {
         <Navbar />
       </div>
       <div className="pt-20 mx-auto">
-        <HeroSection />
+        <HeroSection3 />
       </div>
       <div className="container mx-auto p-8">
        

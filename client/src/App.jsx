@@ -11,6 +11,8 @@ import Dashboard from './pages/Dashboard';
 import './charts/ChartjsConfig';
 import './css/style.css';
 import MyTenders from './pages/MyTenders';
+import HowItWorks from './pages/HowItWorks';
+import Contact from './pages/Contact';
 
 
 
@@ -33,6 +35,8 @@ function App() {
             <Route path='/bidding-tenders' element={<Tenders />} />
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/my-tenders' element={<MyTenders />} />
+            <Route path='/how-it-works' element={<HowItWorks />} />
+            <Route path='/contact' element={<Contact />} /> 
             
           </>
         ) : (

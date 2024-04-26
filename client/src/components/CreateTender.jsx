@@ -4,6 +4,8 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import axios from 'axios';
 import { BASE_URL } from '../utils/url';
+import Footer from './Footer';
+// import sendPublishedTendersEmail from '../utils/emailsender';
 
 const CreateTender = () => {
   let formRef = null;
@@ -52,6 +54,16 @@ const CreateTender = () => {
         },
       });
       alert('Tender published successfully!');
+
+      // Send email with published tender data
+    // await sendPublishedTendersEmail(
+    //   email, // Assuming you have the email stored somewhere accessible
+    //   firstName, // Assuming you have the first name stored somewhere accessible
+    //   lastName, // Assuming you have the last name stored somewhere accessible
+    //   [formData] // Pass an array containing the published tender data
+    // );
+
+
       // Clear the form
       setFormData({
         nameOfWork: '',
@@ -228,6 +240,7 @@ const CreateTender = () => {
             </form>
           </div>
         </div>
+        <Footer />
       </div>
     </div>
   );

@@ -28,11 +28,11 @@ const Footer = () => {
           </div>
         </div>
         <div className="mt-8 text-center">
-          <p>&copy; 2023 TENDERLY. All Rights Reserved.</p>
+          <p>&copy; 2024 TENDERLY. All Rights Reserved.</p>
           <div className="flex justify-center mt-4">
-            <a href="#" className="mr-4 hover:text-gray-300"><FontAwesomeIcon icon={faInstagram} size="2x" /></a>
-            <a href="#" className="mr-4 hover:text-gray-300"><FontAwesomeIcon icon={faFacebook} size="2x" /></a>
-            <a href="#" className="hover:text-gray-300"><FontAwesomeIcon icon={faTwitter} size="2x" /></a>
+            <a href="https://www.instagram.com/maihooyash/" target="_blank" className="mr-4 hover:text-gray-300"><FontAwesomeIcon icon={faInstagram} size="2x" /></a>
+            <a href="https://www.facebook.com/profile.php?id=100057981459589" target="_blank" className="mr-4 hover:text-gray-300"><FontAwesomeIcon icon={faFacebook} size="2x" /></a>
+            <a href="https://twitter.com/Yash_s33244" target="_blank" className="hover:text-gray-300"><FontAwesomeIcon icon={faTwitter} size="2x" /></a>
           </div>
         </div>
       </div>

@@ -5,6 +5,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 // import Sidebar from './MySidebar';
 import { useState } from 'react';
 import Profile from './Profile';
+import { FaSearch } from "react-icons/fa";
 
 const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -31,7 +32,7 @@ const Navbar = () => {
     }
     const handleHowItWorks = (e) => {
         e.preventDefault();
-        window.location.href = '/';
+        window.location.href = '/how-it-works';
     }
     const handleRegister = (e) => {
         e.preventDefault();
@@ -43,7 +44,7 @@ const Navbar = () => {
     }
     const handleContact = (e) => {
         e.preventDefault();
-        window.location.href = '/';
+        window.location.href = '/contact';
     }
     const handleSidebar = ()=>{
       console.log('clicked');
@@ -74,12 +75,6 @@ const Navbar = () => {
       
       <div className='flex justify-between items-center'>
         <SearchComponent />
-        {/* <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-4"
-          onClick={handleLogout}
-        >
-          Logout
-        </button> */}
         <div className="sidebar py-2 px-4 rounded ml-4" onClick={toggleDropdown}>
           {/* <FontAwesomeIcon icon={faBars} /> */}
           <Profile isOpen={isOpen} isClose={closeDropdown} />
